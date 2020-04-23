@@ -1,0 +1,46 @@
+﻿@model Phd.ViewModels.StudentGradeViewModel
+
+@{
+    ViewData["Title"] = "Получить результаты";
+}
+
+<h2>Общая оценка</h2>
+
+@{ var aver = Model.AverageGrade;}
+
+@if (aver == null)
+{
+    <p>The price is OK.</p>
+}
+else
+{
+
+}
+
+
+
+<div><strong><b><em>@Html.DisplayFor(model => model.AverageGrade) %</em></b></strong></div>
+
+<div><strong><b><em>@Html.DisplayFor(model => model.StudentName) </em></b></strong></div>
+
+
+
+@foreach (var item in Model.Users)
+{
+    <p>@Html.DisplayFor(modelItem => item.LastName)</p>
+}
+
+
+
+Имена тех кто стаdил оценки:
+<p> </p>
+
+@foreach (var item in Model.Grades)
+{
+    <p>@Html.DisplayFor(modelItem => item.User.LastName)</p>
+    <p>@Html.DisplayFor(modelItem => item.Value)</p>
+}
+
+
+
+

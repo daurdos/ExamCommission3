@@ -12,22 +12,22 @@ namespace Phd.Data
         {
 
             // закомментировать после первого запуска
-            
+
             //string adminEmail = "daurdos@gmail.com";
             //string password = "!QAZ1qaz";
             //if (await roleManager.FindByNameAsync("admin") == null)
             //{
             //    await roleManager.CreateAsync(new IdentityRole("admin"));
             //}
-            
+
 
             // закомментировать после первого запуска
-            
+
             //if (await roleManager.FindByNameAsync("user") == null)
             //{
             //    await roleManager.CreateAsync(new IdentityRole("user"));
             //}
-           
+
 
 
             // добавляю инициализацию кафедр
@@ -51,28 +51,20 @@ namespace Phd.Data
                 context.SaveChanges();
             }
 
-            // добавляю инициализацию госаттестационной комисии
-            if (!context.BRExamCommission.Any())
-            {
-                context.BRExamCommission.Add(new BRExamCommission { Name = "Initial BRExamCommission", BMajorId = 1 });
-                context.SaveChanges();
-            }
-            ///
-
 
 
             // закомментировать после первого запуска
-                   
+
             //if (await userManager.FindByNameAsync(adminEmail) == null)
             //{
-            //    User admin = new User { Email = adminEmail, UserName = adminEmail, AcademicDepartmentId = 1 };
+            //    User admin = new User { Email = adminEmail, UserName = "SuperAdmin", BMajorId = 1 };
             //    IdentityResult result = await userManager.CreateAsync(admin, password);
             //    if (result.Succeeded)
             //    {
             //        await userManager.AddToRoleAsync(admin, "admin");
             //    }
             //}
-            
+
 
 
         }

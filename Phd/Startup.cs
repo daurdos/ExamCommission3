@@ -43,6 +43,20 @@ namespace Phd
                 .AddEntityFrameworkStores<PhdContext>()
                 .AddDefaultTokenProviders();
 
+            ////////////////////////////////
+            ///тестирую добавление функции регистрироваться несколько раз
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.User.RequireUniqueEmail = false;
+
+
+
+            });
+
+            ////////////// ***
+
+
             services.AddMvc();
         }
 

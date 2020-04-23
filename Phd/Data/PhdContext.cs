@@ -16,7 +16,6 @@ namespace Phd.Models
         public DbSet<Phd.Models.AcademicDepartment> AcademicDepartment { get; set; }
         public DbSet<Phd.Models.BDirection> BDirection { get; set; }
         public DbSet<Phd.Models.BMajor> BMajor { get; set; }
-        public DbSet<Phd.Models.BRExamCommission> BRExamCommission { get; set; }
         public DbSet<Phd.Models.BRStudentGroup> BRStudentGroup { get; set; }
         public DbSet<Phd.Models.BRStudent> BRStudent { get; set; }
         public DbSet<Phd.Models.BRStudentGrade> BRStudentGrade { get; set; }

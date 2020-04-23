@@ -20,18 +20,10 @@ namespace Phd.Controllers
         // GET: BMajors
         public async Task<IActionResult> Index()
         {
-            var phdContext = Context.BMajor.Include(b => b.AcademicDepartment).Include(b=>b.BRExamCommission);
+            var phdContext = Context.BMajor.Include(b => b.AcademicDepartment);
             ViewBag.UserId = UserManager.GetUserId(HttpContext.User);
 
-            if (IsAdmin())
-            {
-                return View(await phdContext.ToListAsync());
-            }
-            else
-            {
-                return View(await phdContext.Where(x=>x.AcademicDepartmentId == GetUser().AcademicDepartmentId).ToListAsync());
-            }
-            
+            return View(await phdContext.ToListAsync());
 
         }
 
@@ -164,158 +156,6 @@ namespace Phd.Controllers
         private bool BMajorExists(int id)
         {
             return Context.BMajor.Any(e => e.Id == id);
-        }
-
-
-
-
-
-
-
-
-
-        public IActionResult CreateBRExamCommission(int id)
-        {
-            ViewBag.Id = id;
-            return View();
-        }
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateBRExamCommission([Bind("Name,BMajorId")] BRExamCommission bRExamCommission)
-        {
-            if (ModelState.IsValid)
-            {
-                Context.Add(bRExamCommission);
-                await Context.SaveChangesAsync();
-                return RedirectToAction(nameof(Success));
-            }
-            return View(bRExamCommission);
-        }
-
-
-        public IActionResult GetBRExamCommission(int id)
-        {
-
-            var allBRExamCommissions = Context.BRExamCommission.ToList();
-            var bRExamCommissionsByBMajor = (from c in allBRExamCommissions
-                                             where c.BMajorId == id
-                                             select c).ToList();
-            return View(bRExamCommissionsByBMajor);
-        }
-
-
-        public IActionResult CreateBRStudentGroups(int id)
-        {
-            ViewBag.Id = id;
-            return View();
-        }
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateBRStudentGroups([Bind("Name,BRExamCommissionId")] BRStudentGroup bRStudentGroup)
-        {
-            if (ModelState.IsValid)
-            {
-                Context.Add(bRStudentGroup);
-                await Context.SaveChangesAsync();
-                return RedirectToAction(nameof(Success));
-            }
-            return View(bRStudentGroup);
-        }
-
-        public IActionResult GetBRStudentGroups(int id)
-        {
-
-            var allBRStudentGroups = Context.BRStudentGroup.ToList();
-            var bRStudentGroupsByBRExamCommission = (from g in allBRStudentGroups
-                                             where g.BRExamCommissionId == id
-                                             select g).ToList();
-            return View(bRStudentGroupsByBRExamCommission);
-        }
-
-
-        public IActionResult CreateBRStudent(int id)
-        {
-            ViewBag.Id = id;
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateBRStudent([Bind("Name,BRStudentGroupId")] BRStudent bRStudent)
-        {
-            if (ModelState.IsValid)
-            {
-                Context.Add(bRStudent);
-                await Context.SaveChangesAsync();
-                return RedirectToAction(nameof(Success));
-            }
-            return View(bRStudent);
-        }
-
-        public IActionResult GetBRStudents(int id)
-        {
-
-            ViewBag.UserId = UserManager.GetUserId(HttpContext.User);
-            var allBRStudents = Context.BRStudent.ToList();
-            var bRStudentsByBRStudentGroup = (from g in allBRStudents
-                                                     where g.BRStudentGroupId == id
-                                                     select g).ToList();
-            return View(bRStudentsByBRStudentGroup);
-        }
-
-        public IActionResult CreateBRStudentGrade(int studentId, string userId)
-        {
-            var bRStudentGrades = Context.BRStudentGrade.ToList();
-            var condition = bRStudentGrades != null && bRStudentGrades.Any(x => x.UserId ==  userId && x.BRStudentId == studentId);
-           if (!condition)
-           {
-                ViewBag.StudentId = studentId;
-                ViewBag.UserId = UserManager.GetUserId(HttpContext.User);
-            }
-            return View();
-        }
-
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateBRStudentGrade([Bind("Value,BRStudentId,UserId")] BRStudentGrade bRStudentGrade)
-        {
-
-
-            if (ModelState.IsValid)
-            {
-
-                Context.Update(bRStudentGrade);
-                await Context.SaveChangesAsync();
-
-
-                return RedirectToAction(nameof(Success));
-            }
-            return View(bRStudentGrade);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetBRStudentGrade(int studentId)
-        {
-
-            var student = await Context.BRStudent.Include(x => x.BRStudentGrade).FirstOrDefaultAsync(x => x.Id == studentId);
-            return View(new StudentGradeViewModel
-            {
-                StudentName = student.Name,
-                AverageGrade = student.BRStudentGrade.Average(x=>x.Value)
-            });
-        }
-
-
-
-        public async Task<IActionResult> Success()
-        {
-            return View();
         }
 
 

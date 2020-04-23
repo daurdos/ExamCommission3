@@ -30,26 +30,7 @@ namespace Phd.Controllers
         public IActionResult Register()
         {
 
-            var faculties = _context.Faculty.ToList();
-            var departments = _context.AcademicDepartment.Include(p => p.Faculty).Include(p => p.User).AsEnumerable();
-            //var allDeps = _context.AcademicDepartment.ToList();
-            //var depsByFaculty = from d in departments
-            //                    where d.FacultyId == facultyId
-            //                    select d;
-            //departments = departments.Where(d => d.Faculty.Id == facultyId);
-
-
-
-            // модифицирую регистрацию с добавлением ГАК
-
-            ViewData["FacultyId"] = new SelectList(_context.Faculty, "Id", "Name");
-            //ViewData["AcademicDepartmentId"] = new SelectList(_context.AcademicDepartment, "Id", "Name");
-            ViewBag.Faculties = faculties;
-            //ViewData["AcademicDepartmentId"] = new SelectList(_context.AcademicDepartment.Where(d => d.FacultyId == id), "Id", "Name");
             ViewData["BMajorId"] = new SelectList(_context.BMajor, "Id", "Cypher");
-            ViewData["BRExamCommissionId"] = new SelectList(_context.BRExamCommission, "Id", "Name");
-            
-
             return View();
         }
 
@@ -63,14 +44,11 @@ namespace Phd.Controllers
                 User user = new User 
                 { 
                     Email = model.Email,
-                    UserName = model.Email,
+                    UserName = model.UName,
                     LastName = model.LastName,
                     FirstName = model.FirstName,
                     MiddleName = model.MiddleName,
-                    AcademicDepartmentId = model.AcademicDepartmentId,
-                    BMajorId = model.BMajorId,
-                    BRExamCommissionId = model.BRExamCommissionId,
-                    FacultyId = model.FacultyId
+                    BMajorId = model.BMajorId
                 };
                 // добавляем пользователя
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -128,15 +106,12 @@ namespace Phd.Controllers
                 User user = new User
                 {
                     Email = model.Email,
-                    UserName = model.Email,
+                    UserName = model.UName,
                     LastName = model.LastName,
                     FirstName = model.FirstName,
                     MiddleName = model.MiddleName,
-                    FacultyId = model.FacultyId,
-                    AcademicDepartmentId = model.AcademicDepartmentId,
-                    BMajorId = model.BMajorId,
-                    BRExamCommissionId = model.BRExamCommissionId
-                    
+                    BMajorId = model.BMajorId
+
                 };
                 // добавляем пользователя
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -233,7 +208,7 @@ namespace Phd.Controllers
 
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByNameAsync(model.Email);
+                var user = await _userManager.FindByNameAsync(model.UserName);
                 if (user != null)
                 {
                     // проверяем, подтвержден ли email
@@ -247,7 +222,7 @@ namespace Phd.Controllers
 
                 }
 
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "Home");

@@ -33,7 +33,7 @@ namespace Phd.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Email = model.Email, UserName = model.Email, LastName = model.LastName, FirstName = model.FirstName, MiddleName = model.MiddleName};
+                User user = new User { Email = model.Email, UserName = model.UName, LastName = model.LastName, FirstName = model.FirstName, MiddleName = model.MiddleName};
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -72,7 +72,7 @@ namespace Phd.Controllers
                 if (user != null)
                 {
                     user.Email = model.Email;
-                    user.UserName = model.Email;
+                    user.UserName = model.UName;
                     user.LastName = model.LastName;
                     user.FirstName = model.FirstName;
                     user.MiddleName = model.MiddleName;

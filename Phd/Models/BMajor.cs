@@ -22,8 +22,6 @@ namespace Phd.Models
         [Display(Name = "Название на англ.яз.")]
         public string NameEng { get; set; }
 
-        public ICollection<BRExamCommission> BRExamCommission { get; set; }
-
         [Display(Name = "Кафедра")]
         public int AcademicDepartmentId { get; set; }
         [Display(Name = "Кафедра")]

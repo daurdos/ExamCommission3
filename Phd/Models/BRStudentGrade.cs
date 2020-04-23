@@ -13,12 +13,10 @@ namespace Phd.Models
         [Display(Name = "Оценка (%)")]
         public int Value { get; set; }
 
-        [Display(Name = "Студент")]
+
         public int BRStudentId { get; set; }
-        [Display(Name = "Студент")]
         public BRStudent BRStudent { get; set; }
 
-        [Display(Name = "От преподавателя")]
         public string UserId { get; set; }
         public User User { get; set; }
     }

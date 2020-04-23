@@ -1,0 +1,141 @@
+﻿@model Phd.Models.BRStudent
+
+@{
+    ViewData["Title"] = "Создать студента";
+}
+
+<h2>Создать</h2>
+
+<h4>Студента</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateStudentAsync">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" value="@ViewBag.Id" asp-for="BRStudentGroupId" />
+            <div class="form-group">
+                <label asp-for="Iin" class="control-label"></label>
+                <input asp-for="Iin" class="form-control" />
+                <span asp-validation-for="Iin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fname" class="control-label"></label>
+                <input asp-for="Fname" class="form-control" />
+                <span asp-validation-for="Fname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mname" class="control-label"></label>
+                <input asp-for="Mname" class="form-control" />
+                <span asp-validation-for="Mname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Lname" class="control-label"></label>
+                <input asp-for="Lname" class="form-control" />
+                <span asp-validation-for="Lname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ThesisTopicRus" class="control-label"></label>
+                <input asp-for="ThesisTopicRus" class="form-control" />
+                <span asp-validation-for="ThesisTopicRus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ThesisTopicKaz" class="control-label"></label>
+                <input asp-for="ThesisTopicKaz" class="form-control" />
+                <span asp-validation-for="ThesisTopicKaz" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ThesisTopicEng" class="control-label"></label>
+                <input asp-for="ThesisTopicEng" class="form-control" />
+                <span asp-validation-for="ThesisTopicEng" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResearchSupervisorFname" class="control-label"></label>
+                <input asp-for="ResearchSupervisorFname" class="form-control" />
+                <span asp-validation-for="ResearchSupervisorFname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResearchSupervisorMname" class="control-label"></label>
+                <input asp-for="ResearchSupervisorMname" class="form-control" />
+                <span asp-validation-for="ResearchSupervisorMname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResearchSupervisorLname" class="control-label"></label>
+                <input asp-for="ResearchSupervisorLname" class="form-control" />
+                <span asp-validation-for="ResearchSupervisorLname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResearchSupervisorWorkPlace" class="control-label"></label>
+                <input asp-for="ResearchSupervisorWorkPlace" class="form-control" />
+                <span asp-validation-for="ResearchSupervisorWorkPlace" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResearchSupervisorPosition" class="control-label"></label>
+                <input asp-for="ResearchSupervisorPosition" class="form-control" />
+                <span asp-validation-for="ResearchSupervisorPosition" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReviewerFname" class="control-label"></label>
+                <input asp-for="ReviewerFname" class="form-control" />
+                <span asp-validation-for="ReviewerFname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReviewerMname" class="control-label"></label>
+                <input asp-for="ReviewerMname" class="form-control" />
+                <span asp-validation-for="ReviewerMname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReviewerLname" class="control-label"></label>
+                <input asp-for="ReviewerLname" class="form-control" />
+                <span asp-validation-for="ReviewerLname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReviewerWorkPlace" class="control-label"></label>
+                <input asp-for="ReviewerWorkPlace" class="form-control" />
+                <span asp-validation-for="ReviewerWorkPlace" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReviewerPosition" class="control-label"></label>
+                <input asp-for="ReviewerPosition" class="form-control" />
+                <span asp-validation-for="ReviewerPosition" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReviewerGrade" class="control-label"></label>
+                <input asp-for="ReviewerGrade" class="form-control" />
+                <span asp-validation-for="ReviewerGrade" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConsultantFname" class="control-label"></label>
+                <input asp-for="ConsultantFname" class="form-control" />
+                <span asp-validation-for="ConsultantFname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConsultantMname" class="control-label"></label>
+                <input asp-for="ConsultantMname" class="form-control" />
+                <span asp-validation-for="ConsultantMname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConsultantLname" class="control-label"></label>
+                <input asp-for="ConsultantLname" class="form-control" />
+                <span asp-validation-for="ConsultantLname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConsultantWorkPlace" class="control-label"></label>
+                <input asp-for="ConsultantWorkPlace" class="form-control" />
+                <span asp-validation-for="ConsultantWorkPlace" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConsultantPosition" class="control-label"></label>
+                <input asp-for="ConsultantPosition" class="form-control" />
+                <span asp-validation-for="ConsultantPosition" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-sm btn-primary" asp-action="Index">Домой</a>
+</div>
+

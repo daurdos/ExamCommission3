@@ -20,6 +20,6 @@ namespace Phd.Models
         public Faculty Faculty { get; set; }
         public ICollection<BMajor> BMajor { get; set; }
         public ICollection<BDirection> BDirection { get; set; }
-        public ICollection<User> User { get; set; }
+
     }
 }

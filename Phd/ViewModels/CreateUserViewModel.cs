@@ -21,5 +21,7 @@ namespace Phd.ViewModels
 
         [Display(Name = "Отчество")]
         public string MiddleName { get; set; }
+
+        public string UName { get; set; }
     }
 }

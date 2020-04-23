@@ -90,44 +90,6 @@ namespace Phd.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    UserName = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
-                    Email = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(nullable: false),
-                    PasswordHash = table.Column<string>(nullable: true),
-                    SecurityStamp = table.Column<string>(nullable: true),
-                    ConcurrencyStamp = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false),
-                    LastName = table.Column<string>(nullable: true),
-                    FirstName = table.Column<string>(nullable: true),
-                    MiddleName = table.Column<string>(nullable: true),
-                    AcademicDepartmentId = table.Column<int>(nullable: false),
-                    BMajorId = table.Column<int>(nullable: false),
-                    BRExamCommissionId = table.Column<int>(nullable: false),
-                    FacultyId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetUsers_AcademicDepartment_AcademicDepartmentId",
-                        column: x => x.AcademicDepartmentId,
-                        principalTable: "AcademicDepartment",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "BDirection",
                 columns: table => new
                 {
@@ -169,6 +131,69 @@ namespace Phd.Migrations
                         name: "FK_BMajor_AcademicDepartment_AcademicDepartmentId",
                         column: x => x.AcademicDepartmentId,
                         principalTable: "AcademicDepartment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    UserName = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
+                    Email = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    SecurityStamp = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    LastName = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    MiddleName = table.Column<string>(nullable: true),
+                    UName = table.Column<string>(nullable: true),
+                    BMajorId = table.Column<int>(nullable: false),
+                    AcademicDepartmentId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_AcademicDepartment_AcademicDepartmentId",
+                        column: x => x.AcademicDepartmentId,
+                        principalTable: "AcademicDepartment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_BMajor_BMajorId",
+                        column: x => x.BMajorId,
+                        principalTable: "BMajor",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BRStudentGroup",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    BMajorId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BRStudentGroup", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BRStudentGroup_BMajor_BMajorId",
+                        column: x => x.BMajorId,
+                        principalTable: "BMajor",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -259,52 +284,34 @@ namespace Phd.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BRExamCommission",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    BMajorId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BRExamCommission", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_BRExamCommission_BMajor_BMajorId",
-                        column: x => x.BMajorId,
-                        principalTable: "BMajor",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "BRStudentGroup",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    BRExamCommissionId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BRStudentGroup", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_BRStudentGroup_BRExamCommission_BRExamCommissionId",
-                        column: x => x.BRExamCommissionId,
-                        principalTable: "BRExamCommission",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "BRStudent",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
+                    Iin = table.Column<string>(nullable: true),
+                    Fname = table.Column<string>(nullable: true),
+                    Mname = table.Column<string>(nullable: true),
+                    Lname = table.Column<string>(nullable: true),
+                    ThesisTopicRus = table.Column<string>(nullable: true),
+                    ThesisTopicKaz = table.Column<string>(nullable: true),
+                    ThesisTopicEng = table.Column<string>(nullable: true),
+                    ResearchSupervisorFname = table.Column<string>(nullable: true),
+                    ResearchSupervisorMname = table.Column<string>(nullable: true),
+                    ResearchSupervisorLname = table.Column<string>(nullable: true),
+                    ResearchSupervisorWorkPlace = table.Column<string>(nullable: true),
+                    ResearchSupervisorPosition = table.Column<string>(nullable: true),
+                    ReviewerFname = table.Column<string>(nullable: true),
+                    ReviewerMname = table.Column<string>(nullable: true),
+                    ReviewerLname = table.Column<string>(nullable: true),
+                    ReviewerWorkPlace = table.Column<string>(nullable: true),
+                    ReviewerPosition = table.Column<string>(nullable: true),
+                    ReviewerGrade = table.Column<int>(nullable: false),
+                    ConsultantFname = table.Column<string>(nullable: true),
+                    ConsultantMname = table.Column<string>(nullable: true),
+                    ConsultantLname = table.Column<string>(nullable: true),
+                    ConsultantWorkPlace = table.Column<string>(nullable: true),
+                    ConsultantPosition = table.Column<string>(nullable: true),
                     BRStudentGroupId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -411,6 +418,11 @@ namespace Phd.Migrations
                 column: "AcademicDepartmentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_BMajorId",
+                table: "AspNetUsers",
+                column: "BMajorId");
+
+            migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
@@ -431,11 +443,6 @@ namespace Phd.Migrations
                 name: "IX_BMajor_AcademicDepartmentId",
                 table: "BMajor",
                 column: "AcademicDepartmentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_BRExamCommission_BMajorId",
-                table: "BRExamCommission",
-                column: "BMajorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BRStudent_BRStudentGroupId",
@@ -463,9 +470,9 @@ namespace Phd.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BRStudentGroup_BRExamCommissionId",
+                name: "IX_BRStudentGroup_BMajorId",
                 table: "BRStudentGroup",
-                column: "BRExamCommissionId");
+                column: "BMajorId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -508,9 +515,6 @@ namespace Phd.Migrations
 
             migrationBuilder.DropTable(
                 name: "BRStudentGroup");
-
-            migrationBuilder.DropTable(
-                name: "BRExamCommission");
 
             migrationBuilder.DropTable(
                 name: "BMajor");

@@ -16,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BRExamCommission)
+                @Html.DisplayNameFor(model => model.BMajor)
             </th>
             <th></th>
         </tr>
@@ -28,12 +28,14 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BRExamCommission.Id)
+                @Html.DisplayFor(modelItem => item.BMajor.Id)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="CreateStudentAsync" asp-route-id="@item.Id">Создать студента</a> |
+                <a asp-action="GetStudentsAsync" asp-route-id="@item.Id">Студенты</a>
             </td>
         </tr>
 }

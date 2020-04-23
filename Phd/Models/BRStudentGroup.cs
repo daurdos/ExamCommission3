@@ -15,9 +15,9 @@ namespace Phd.Models
         public ICollection<BRStudent> BRStudent { get; set; }
 
         [Display(Name = "Комиссия")]
-        public int BRExamCommissionId { get; set; }
+        public int BMajorId { get; set; }
         [Display(Name = "Комиссия")]
-        public BRExamCommission BRExamCommission { get; set; }
+        public BMajor BMajor { get; set; }
 
     }
 }

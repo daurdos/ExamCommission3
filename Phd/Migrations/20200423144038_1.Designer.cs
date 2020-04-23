@@ -10,7 +10,7 @@ using Phd.Models;
 namespace Phd.Migrations
 {
     [DbContext(typeof(PhdContext))]
-    [Migration("20200412181804_1")]
+    [Migration("20200423144038_1")]
     partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -194,23 +194,6 @@ namespace Phd.Migrations
                     b.ToTable("BMajor");
                 });
 
-            modelBuilder.Entity("Phd.Models.BRExamCommission", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BMajorId");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BMajorId");
-
-                    b.ToTable("BRExamCommission");
-                });
-
             modelBuilder.Entity("Phd.Models.BRStudent", b =>
                 {
                     b.Property<int>("Id")
@@ -219,7 +202,51 @@ namespace Phd.Migrations
 
                     b.Property<int>("BRStudentGroupId");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("ConsultantFname");
+
+                    b.Property<string>("ConsultantLname");
+
+                    b.Property<string>("ConsultantMname");
+
+                    b.Property<string>("ConsultantPosition");
+
+                    b.Property<string>("ConsultantWorkPlace");
+
+                    b.Property<string>("Fname");
+
+                    b.Property<string>("Iin");
+
+                    b.Property<string>("Lname");
+
+                    b.Property<string>("Mname");
+
+                    b.Property<string>("ResearchSupervisorFname");
+
+                    b.Property<string>("ResearchSupervisorLname");
+
+                    b.Property<string>("ResearchSupervisorMname");
+
+                    b.Property<string>("ResearchSupervisorPosition");
+
+                    b.Property<string>("ResearchSupervisorWorkPlace");
+
+                    b.Property<string>("ReviewerFname");
+
+                    b.Property<int>("ReviewerGrade");
+
+                    b.Property<string>("ReviewerLname");
+
+                    b.Property<string>("ReviewerMname");
+
+                    b.Property<string>("ReviewerPosition");
+
+                    b.Property<string>("ReviewerWorkPlace");
+
+                    b.Property<string>("ThesisTopicEng");
+
+                    b.Property<string>("ThesisTopicKaz");
+
+                    b.Property<string>("ThesisTopicRus");
 
                     b.HasKey("Id");
 
@@ -278,13 +305,13 @@ namespace Phd.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BRExamCommissionId");
+                    b.Property<int>("BMajorId");
 
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BRExamCommissionId");
+                    b.HasIndex("BMajorId");
 
                     b.ToTable("BRStudentGroup");
                 });
@@ -320,13 +347,11 @@ namespace Phd.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AcademicDepartmentId");
+                    b.Property<int?>("AcademicDepartmentId");
 
                     b.Property<int>("AccessFailedCount");
 
                     b.Property<int>("BMajorId");
-
-                    b.Property<int>("BRExamCommissionId");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -335,8 +360,6 @@ namespace Phd.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
-
-                    b.Property<int>("FacultyId");
 
                     b.Property<string>("FirstName");
 
@@ -364,12 +387,16 @@ namespace Phd.Migrations
 
                     b.Property<bool>("TwoFactorEnabled");
 
+                    b.Property<string>("UName");
+
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
 
                     b.HasIndex("AcademicDepartmentId");
+
+                    b.HasIndex("BMajorId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -451,14 +478,6 @@ namespace Phd.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Phd.Models.BRExamCommission", b =>
-                {
-                    b.HasOne("Phd.Models.BMajor", "BMajor")
-                        .WithMany("BRExamCommission")
-                        .HasForeignKey("BMajorId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("Phd.Models.BRStudent", b =>
                 {
                     b.HasOne("Phd.Models.BRStudentGroup")
@@ -488,23 +507,27 @@ namespace Phd.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Phd.Models.User", "User")
-                        .WithMany()
+                        .WithMany("BRStudentGrades")
                         .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Phd.Models.BRStudentGroup", b =>
                 {
-                    b.HasOne("Phd.Models.BRExamCommission", "BRExamCommission")
-                        .WithMany("BRStudentGroup")
-                        .HasForeignKey("BRExamCommissionId")
+                    b.HasOne("Phd.Models.BMajor", "BMajor")
+                        .WithMany()
+                        .HasForeignKey("BMajorId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Phd.Models.User", b =>
                 {
-                    b.HasOne("Phd.Models.AcademicDepartment", "AcademicDepartment")
+                    b.HasOne("Phd.Models.AcademicDepartment")
                         .WithMany("User")
-                        .HasForeignKey("AcademicDepartmentId")
+                        .HasForeignKey("AcademicDepartmentId");
+
+                    b.HasOne("Phd.Models.BMajor", "BMajor")
+                        .WithMany()
+                        .HasForeignKey("BMajorId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
